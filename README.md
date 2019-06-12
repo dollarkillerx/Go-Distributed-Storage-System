@@ -32,4 +32,5 @@ Go Distributed Storage System
 ### 错误码
 - 0051 模板错误
 - 0040 用户输入参数错误
+- 0050 服务器内部错误
     

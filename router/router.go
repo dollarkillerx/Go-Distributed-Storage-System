@@ -16,10 +16,10 @@ func RegisterRouter() *httprouter.Router {
 
 	router.GET("/file/upload",container.UploadHandlerView)
 	router.POST("/file/upload",container.UploadHandler)
-	router.GET("/file/query")
-	router.GET("/file/:filename/download")
-	router.DELETE("/file/:filename/delete")
-	router.PUT("/file/:filename/update")
+	//router.GET("/file/query")
+	//router.GET("/file/:filename/download")
+	//router.DELETE("/file/:filename/delete")
+	//router.PUT("/file/:filename/update")
 
 	return router
 }
