@@ -17,8 +17,10 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 )
 
+// 上传文件
 func UploadHandler(w http.ResponseWriter,r *http.Request, p httprouter.Params)  {
 	file, header, e := r.FormFile("file")
 
@@ -39,11 +41,12 @@ func UploadHandler(w http.ResponseWriter,r *http.Request, p httprouter.Params)  
 		response.RespMsg(w,defs.ErrorBadRequest)
 		return
 	}
-	filename := dir +"/" + utils.FileGetRandomName(s) // 生成新的文件名
+	filename := utils.FileGetRandomName(s)
+	filepath := dir +"/" + filename // 生成新的文件名
 
-	log.Println(filename)
+	log.Println(filepath)
 
-	newFile, e := os.OpenFile(filename, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0666)
+	newFile, e := os.OpenFile(filepath, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0666)
 	if e != nil {
 		response.RespMsg(w,defs.ErrorBadRequest)
 		log.Println("open file err")
@@ -67,21 +70,36 @@ func UploadHandler(w http.ResponseWriter,r *http.Request, p httprouter.Params)  
 		}
 	}
 
+	i, _ := strconv.Atoi(utils.TimeGetNowTimeStr())
+	writer.Flush()
+	newFile.Seek(0,0)
+	sha1 := utils.FileGetSha1(newFile)
+	meta := &defs.FileMeta{
+		FileName:filename,
+		Location:filepath,
+		FileSize:header.Size,
+		UploadAt:i,
+		FileSha1:sha1,
+	}
+	defs.UpdateFileMeta(meta)
 	response.RespMsg(w,&defs.Message{
 		Code:200,
 		Resp:&defs.Resp{
 			Code:"001",
 			Message:"upload Ok",
+			Data:defs.Ic{
+				"hash":sha1,
+			},
 		},
 	})
 	defer func() {
-		writer.Flush()
 		file.Close()
 		newFile.Close()
 	}()
 
 }
 
+// 上传文件view展示页面
 func UploadHandlerView(w http.ResponseWriter,r *http.Request,p httprouter.Params)  {
 	bytes, e := ioutil.ReadFile("./static/view/file/upload.html")
 	if e != nil {
@@ -91,3 +109,129 @@ func UploadHandlerView(w http.ResponseWriter,r *http.Request,p httprouter.Params
 	response.RespView(w,bytes)
 }
 
+// 获取上传文件信息
+func GetFileMetaHandler(w http.ResponseWriter,r *http.Request, p httprouter.Params)  {
+	name := p.ByName("filehash")
+	if name == "" {
+		response.RespMsg(w,defs.ErrorBadRequest)
+		return
+	}
+	meta, e := defs.GetFileMeta(name)
+	if e != nil {
+		response.RespMsg(w,defs.ErrorBadRequest)
+		return
+	}
+	response.RespMsg(w,&defs.Message{
+		Code:200,
+		Resp:&defs.Resp{
+			Code:"001",
+			Message:"get Ok",
+			Data:defs.Ic{
+				"data":meta,
+			},
+		},
+	})
+}
+
+// 批量获取上传文件信息
+func FileQueryHandler(w http.ResponseWriter,r *http.Request, p httprouter.Params) {
+	limit := p.ByName("limit")
+	i, e := strconv.Atoi(limit)
+	if e != nil {
+		response.RespMsg(w,defs.ErrorBadRequest)
+		return
+	}
+	metas := defs.GetLastFileMetas(i)
+	response.RespMsg(w,&defs.Message{
+		Code:200,
+		Resp:&defs.Resp{
+			Code:"001",
+			Message:"get Ok",
+			Data:defs.Ic{
+				"data":metas,
+			},
+		},
+	})
+}
+
+func DownloadHandler(w http.ResponseWriter,r *http.Request,p httprouter.Params) {
+	hash := p.ByName("filehash")
+	if hash == "" {
+		response.RespMsg(w,defs.ErrorBadRequest)
+		return
+	}
+
+	meta, e := defs.GetFileMeta(hash)
+	if e != nil {
+		response.RespMsg(w,defs.ErrorBadRequest)
+		return
+	}
+	file, e := os.Open(meta.Location)
+	if e != nil {
+		response.RespMsg(w,defs.ErrorBadRequest)
+		return
+	}
+	defer file.Close()
+	reader := bufio.NewReader(file)
+	bytes := make([]byte, 1024)
+	w.Header().Set("Content-Type","application/octet-stream")
+	w.Header().Set("Content-Disposition","attachment;filename=\"" + meta.FileName + "\"")
+	for {
+		_, e := reader.Read(bytes)
+		if e == io.EOF {
+			break
+		}else if e != nil {
+			response.RespMsg(w,defs.ErrorBadServer)
+			return
+		}else{
+			w.Write(bytes)
+		}
+	}
+}
+
+// 更新元信息接口(rename)
+// 注意以下修改只是修改用户认知的名称,而不是真实存储的名称
+func FileRename(w http.ResponseWriter,r *http.Request,p httprouter.Params) {
+	r.ParseForm()
+	opType := r.PostForm.Get("op") // 文件类型
+	fileHash := r.PostForm.Get("filehash") // 文件hash
+	newName := r.PostForm.Get("newname") // 文件名称
+
+	if opType == "" || fileHash == "" || newName == "" {
+		response.RespMsg(w,defs.ErrorBadRequest)
+		return
+	}
+
+	meta, e := defs.GetFileMeta(fileHash)
+	if e != nil {
+		response.RespMsg(w,defs.ErrorBadRequest)
+		return
+	}
+	meta.FileName = newName
+	defs.UpdateFileMeta(meta)
+	response.RespMsg(w,&defs.Message{
+		Code:200,
+		Resp:&defs.Resp{
+			Code:"001",
+			Message:"update Ok",
+			Data:defs.Ic{
+				"data":meta,
+			},
+		},
+	})
+}
+
+// 文件删除
+func FileDeleteHandler(w http.ResponseWriter,r *http.Request,p httprouter.Params) {
+	hash := p.ByName("filehash")
+	if hash == "" {
+		response.RespMsg(w,defs.ErrorBadRequest)
+		return
+	}
+	err := defs.FileDeleteHandler(hash)
+	if err != nil {
+		response.RespMsg(w,defs.ErrorBadInternalStorage)
+		return
+	}
+	response.RespInputMsg(w,200,"del ok!")
+}

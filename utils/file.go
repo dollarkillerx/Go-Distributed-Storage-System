@@ -7,9 +7,14 @@
 package utils
 
 import (
+	"crypto/md5"
+	"crypto/sha1"
+	"encoding/hex"
 	"errors"
+	"io"
 	"math/rand"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -62,4 +67,38 @@ func FileGetRandomName(postfilx string) string  {
 	encode := Md5Encode(formatInt + itoa + postfilx)
 	name := encode + "." + postfilx
 	return name
+}
+
+// 获得文件sha1
+func FileGetSha1(file *os.File) string {
+	hash := sha1.New()
+	io.Copy(hash,file)
+	return hex.EncodeToString(hash.Sum(nil))
+}
+
+// 获取文件MD5
+func FileGetMD5(file *os.File) string {
+	_md5 := md5.New()
+	io.Copy(_md5, file)
+	return hex.EncodeToString(_md5.Sum(nil))
+}
+
+// 获取文件大小
+func FielGetSize(filename string) int64 {
+	var result int64
+	filepath.Walk(filename, func(path string, f os.FileInfo, err error) error {
+		result = f.Size()
+		return nil
+	})
+	return result
+}
+
+// 获取文件的路径
+func FileGetPath(path string) (string,error) {
+	index := strings.LastIndex(path, "/")
+	if index == 0 {
+		return "",errors.New("error path")
+	}
+	path = path[0:index]
+	return path,nil
 }

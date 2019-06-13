@@ -30,12 +30,12 @@ func TestMd5String(t *testing.T) {
 }
 
 func TestGetCurrentTime(t *testing.T) {
-	time := GetCurrentTime()
+	time := TimeGetNowTimeStr()
 	t.Log(time)
 }
 
 func TestGetTimeToString(t *testing.T) {
-	s, e := GetTimeToString("1558057058")
+	s, e := TimeGetTimeToString("1558057058")
 	if e!=nil {
 		t.Error(e.Error())
 	}
@@ -43,7 +43,7 @@ func TestGetTimeToString(t *testing.T) {
 }
 
 func TestGetTimeStringToTime(t *testing.T) {
-	s, e := GetTimeStringToTime("2019-05-17")
+	s, e := TimeGetStringToTime("2019-05-17")
 	if e!=nil {
 		t.Error(e.Error())
 	}
@@ -51,12 +51,21 @@ func TestGetTimeStringToTime(t *testing.T) {
 }
 
 func TestGetSession(t *testing.T) {
-	session := GetSession("dollarkiller",6*60*60)
+	session := SessionGet("dollarkiller",6*60*60)
 	t.Log(session)
-	bool := CheckSession(session)
+	bool := SessionCheck(session)
 	t.Log(SessionMap.Load(session))
 	t.Log(bool)
-	DelSession(session)
-	bool = CheckSession(session)
+	SessionDel(session)
+	bool = SessionCheck(session)
 	t.Log(bool)
+}
+
+func TestFileGetPath(t *testing.T) {
+	path := "./file/day1/hello.mp4"
+	s, e := FileGetPath(path)
+	if e != nil {
+		t.Fatal(e.Error())
+	}
+	t.Log(s)
 }
