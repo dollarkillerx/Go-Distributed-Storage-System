@@ -91,7 +91,17 @@ func UploadHandler(w http.ResponseWriter,r *http.Request, p httprouter.Params)  
 		FileSha1:sha1,
 	}
 	//defs.UpdateFileMeta(meta)
+	// 写唯一文件表
 	e = dao.UpdateFileMetaToDb(meta)
+	if e != nil {
+		response.RespInputMsg(w,400,e.Error())
+		return
+	}
+	// 写用户文件表
+	//从token里面获取username
+	r.ParseForm()
+	username := r.PostForm.Get("username")
+	e = dao.OnUserFileUploadFinished(username, meta.FileSha1, meta.FileName, meta.FileSize)
 	if e != nil {
 		response.RespInputMsg(w,400,e.Error())
 		return
@@ -249,4 +259,32 @@ func FileDeleteHandler(w http.ResponseWriter,r *http.Request,p httprouter.Params
 		return
 	}
 	response.RespInputMsg(w,200,"del ok!")
+}
+
+func TryFastUploadHandler(w http.ResponseWriter,r *http.Request,p httprouter.Params) {
+	// 1.解析请求参数
+	r.ParseForm()
+	username := r.PostForm.Get("username")
+	fileHash := r.PostForm.Get("filehash")
+	fileName := r.PostForm.Get("filename")
+	fileSize := r.PostForm.Get("filesize")
+	// 2.从文件表中查询相同hash的文件记录
+	// 3.查不到记录则返回秒传失败
+	meta, e := dao.GetFileMetaDb(fileHash)
+	if e !=nil || meta == nil {
+		response.RespInputMsg(w,400,"秒传失败 文件不存在")
+		return
+	}
+	// 4.上传城关则将文件信息写入到用户文件表中去
+	i, e := strconv.ParseInt(fileSize, 10,64)
+	if e != nil {
+		response.RespMsg(w,defs.ErrorBadRequest)
+		return
+	}
+	e = dao.OnUserFileUploadFinished(username, fileHash, fileName, i)
+	if e != nil {
+		response.RespMsg(w,defs.ErrorBadQueryDatabase)
+		return
+	}
+	response.RespInputMsg(w,200,"秒传成功")
 }

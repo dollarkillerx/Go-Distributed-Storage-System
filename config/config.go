@@ -16,6 +16,7 @@ type configStruct struct {
 	Host string `json:"host"`
 	MySQLDsn string `json:"mysql_dsn"`
 	PwdSalt string `json:"pwd_salt"`
+	RedisHost string `json:"redisHost"`
 }
 
 var (
