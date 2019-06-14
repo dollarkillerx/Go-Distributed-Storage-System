@@ -2,26 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="03fd30ca-2a65-4827-b069-029b0e545aa8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/container/userContainer.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dbops/dao/file.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dbops/dao/token.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dbops/dao/user.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/defs/token.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/middleware/auth.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/view/file/home.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/view/file/signup.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Go-Distributed-Storage-System" beforeDir="false" afterPath="$PROJECT_DIR$/Go-Distributed-Storage-System" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/container/fileContainer.go" beforeDir="false" afterPath="$PROJECT_DIR$/container/fileContainer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dbops/conn.go" beforeDir="false" afterPath="$PROJECT_DIR$/dbops/mysql/conn.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/defs/file.go" beforeDir="false" afterPath="$PROJECT_DIR$/defs/file.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/defs/resp.go" beforeDir="false" afterPath="$PROJECT_DIR$/defs/resp.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/response/response.go" beforeDir="false" afterPath="$PROJECT_DIR$/response/response.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/file.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/file.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/v1.md" beforeDir="false" afterPath="$PROJECT_DIR$/v1.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,12 +13,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/v1.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="438">
-                <caret line="56" selection-start-line="56" selection-end-line="62" selection-end-column="40" />
+              <first_editor relative-caret-position="576">
+                <caret line="103" selection-start-line="103" selection-end-line="103" />
               </first_editor>
               <second_editor />
             </state>
@@ -80,11 +61,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/middleware/auth.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+            <state relative-caret-position="368">
+              <caret line="16" selection-start-line="16" selection-end-line="26" selection-end-column="1" />
               <folding>
                 <element signature="e#101#162#0" expanded="true" />
               </folding>
@@ -192,18 +173,18 @@
         <option value="$PROJECT_DIR$/config/config.go" />
         <option value="$PROJECT_DIR$/dbops/dao/user.go" />
         <option value="$PROJECT_DIR$/defs/token.go" />
-        <option value="$PROJECT_DIR$/v1.md" />
         <option value="$PROJECT_DIR$/static/view/file/home.html" />
         <option value="$PROJECT_DIR$/router/router.go" />
         <option value="$PROJECT_DIR$/dbops/dao/token.go" />
         <option value="$PROJECT_DIR$/container/userContainer.go" />
         <option value="$PROJECT_DIR$/middleware/auth.go" />
+        <option value="$PROJECT_DIR$/v1.md" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="558" />
-    <option name="y" value="148" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="588" />
+    <option name="y" value="87" />
     <option name="width" value="1717" />
     <option name="height" value="950" />
   </component>
@@ -244,11 +225,6 @@
               <item name="Go-Distributed-Storage-System" type="b2602c69:ProjectViewProjectNode" />
               <item name="Go-Distributed-Storage-System" type="462c0819:PsiDirectoryNode" />
               <item name="defs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Go-Distributed-Storage-System" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Go-Distributed-Storage-System" type="462c0819:PsiDirectoryNode" />
-              <item name="middleware" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Go-Distributed-Storage-System" type="b2602c69:ProjectViewProjectNode" />
@@ -375,7 +351,7 @@
     <frame x="0" y="24" width="1920" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17094018" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17094018" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -388,7 +364,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.27341226" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.27341226" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -660,16 +636,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/v1.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="438">
-            <caret line="56" selection-start-line="56" selection-end-line="62" selection-end-column="40" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="928">
@@ -705,13 +671,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
           <caret line="3016" column="14" selection-start-line="3016" selection-start-column="14" selection-end-line="3016" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/GOPATH/pkg/mod/github.com/julienschmidt/httprouter@v1.2.0/router.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="85" column="5" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -762,13 +721,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/GOPATH/pkg/mod/github.com/julienschmidt/httprouter@v1.2.0/router.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="82" column="42" selection-start-line="82" selection-start-column="42" selection-end-line="82" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/middleware/auth.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+        <state relative-caret-position="368">
+          <caret line="16" selection-start-line="16" selection-end-line="26" selection-end-column="1" />
           <folding>
             <element signature="e#101#162#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/v1.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="576">
+            <caret line="103" selection-start-line="103" selection-end-line="103" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
