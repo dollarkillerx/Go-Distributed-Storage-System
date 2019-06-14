@@ -7,6 +7,7 @@
 package container
 
 import (
+	"Go-Distributed-Storage-System/dbops/dao"
 	"Go-Distributed-Storage-System/defs"
 	"Go-Distributed-Storage-System/response"
 	"Go-Distributed-Storage-System/utils"
@@ -72,16 +73,30 @@ func UploadHandler(w http.ResponseWriter,r *http.Request, p httprouter.Params)  
 
 	i, _ := strconv.Atoi(utils.TimeGetNowTimeStr())
 	writer.Flush()
-	newFile.Seek(0,0)
-	sha1 := utils.FileGetSha1(newFile)
+	//newFile.Seek(0,0)
+	newFile.Close()
+	open, e := os.Open(filepath)
+	if e != nil {
+		response.RespMsg(w,defs.ErrorBadRequest)
+		return
+	}
+	sha1 := utils.FileGetSha1(open)
+	defer open.Close()
+
 	meta := &defs.FileMeta{
-		FileName:filename,
+		FileName:header.Filename,
 		Location:filepath,
 		FileSize:header.Size,
 		UploadAt:i,
 		FileSha1:sha1,
 	}
-	defs.UpdateFileMeta(meta)
+	//defs.UpdateFileMeta(meta)
+	e = dao.UpdateFileMetaToDb(meta)
+	if e != nil {
+		response.RespInputMsg(w,400,e.Error())
+		return
+	}
+
 	response.RespMsg(w,&defs.Message{
 		Code:200,
 		Resp:&defs.Resp{
@@ -94,7 +109,6 @@ func UploadHandler(w http.ResponseWriter,r *http.Request, p httprouter.Params)  
 	})
 	defer func() {
 		file.Close()
-		newFile.Close()
 	}()
 
 }
@@ -116,7 +130,8 @@ func GetFileMetaHandler(w http.ResponseWriter,r *http.Request, p httprouter.Para
 		response.RespMsg(w,defs.ErrorBadRequest)
 		return
 	}
-	meta, e := defs.GetFileMeta(name)
+	//meta, e := defs.GetFileMeta(name)
+	meta, e := dao.GetFileMetaDb(name)
 	if e != nil {
 		response.RespMsg(w,defs.ErrorBadRequest)
 		return

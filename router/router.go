@@ -9,6 +9,7 @@ package router
 import (
 	"Go-Distributed-Storage-System/container"
 	"github.com/julienschmidt/httprouter"
+	"net/http"
 )
 
 func RegisterRouter() *httprouter.Router {
@@ -21,7 +22,12 @@ func RegisterRouter() *httprouter.Router {
 	router.GET("/file/download/:filehash",container.DownloadHandler)
 	router.POST("/file/change",container.FileRename)
 	router.DELETE("/file/delete/:filehash",container.FileDeleteHandler)
-	//router.PUT("/file/:filename/update")
+
+	router.GET("/user/signup",container.SignupHandlerView)
+	router.POST("/user/signup",container.SignupHandler)
+	router.POST("/user/signin",container.SignlnHandler)
+
+	router.ServeFiles("/admin/*filepath",http.Dir("./static/view/file"))
 
 	return router
 }

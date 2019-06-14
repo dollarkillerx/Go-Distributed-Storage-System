@@ -14,6 +14,8 @@ import (
 
 type configStruct struct {
 	Host string `json:"host"`
+	MySQLDsn string `json:"mysql_dsn"`
+	PwdSalt string `json:"pwd_salt"`
 }
 
 var (

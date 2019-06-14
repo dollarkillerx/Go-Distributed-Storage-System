@@ -71,9 +71,9 @@ func FileGetRandomName(postfilx string) string  {
 
 // 获得文件sha1
 func FileGetSha1(file *os.File) string {
-	hash := sha1.New()
-	io.Copy(hash,file)
-	return hex.EncodeToString(hash.Sum(nil))
+	_sha1 := sha1.New()
+	io.Copy(_sha1, file)
+	return hex.EncodeToString(_sha1.Sum(nil))
 }
 
 // 获取文件MD5

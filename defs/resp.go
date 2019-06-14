@@ -13,7 +13,7 @@ type Message struct {
 
 type Resp struct {
 	Message string `json:"message,omitempty"`
-	Code string `json:"code"`
+	Code string `json:"code,omitempty"`
 	Data interface{} `json:"data,omitempty"`
 }
 

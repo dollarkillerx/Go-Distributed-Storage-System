@@ -31,7 +31,6 @@ func RespMsg(w http.ResponseWriter,msg *defs.Message)  {
 func RespInputMsg(w http.ResponseWriter,code int,msg string) {
 	w.WriteHeader(code)
 	data := &defs.Resp{
-		Code:"200",
 		Message:msg,
 	}
 	bytes, e := json.Marshal(data)

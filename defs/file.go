@@ -28,6 +28,8 @@ func UpdateFileMeta(fmeta *FileMeta) {
 	fileMetas.Store(fmeta.FileSha1,fmeta)
 }
 
+
+
 // GetFileMeta:通过sha1key获取文件元信息对象
 func GetFileMeta(fileSha1 string) (*FileMeta,error) {
 	value, ok := fileMetas.Load(fileSha1)
@@ -68,3 +70,4 @@ func FileDeleteHandler(hash string) error {
 	}
 	return nil
 }
+
