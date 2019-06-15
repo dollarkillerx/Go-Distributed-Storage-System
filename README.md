@@ -36,7 +36,8 @@ Go Distributed Storage System
     - 分布式存储Ceph
 - V4版本
     - 云存储OSS
-    
+- V5版本
+    - 微服务化
 ### 错误码
 - 0051 模板错误
 - 0040 用户输入参数错误
