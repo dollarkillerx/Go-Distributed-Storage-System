@@ -31,11 +31,11 @@ func RegisterRouter() *httprouter.Router {
 
 	// 分块上传通用接口
 	// 初始化分块信息
-	router.POST("/file/mpupload/init",nil)
+	router.POST("/file/mpupload/init",container.InitialMultipartUploadHandler)
 	// 上传分块
-	router.POST("/file/mpupload/uppart",nil)
+	router.POST("/file/mpupload/uppart",container.UploadPartHandler)
 	// 通知分块上传完成
-	router.POST("/file/mpupload/complete",nil)
+	router.POST("/file/mpupload/complete",container.CompleteUploadHandler)
 	// 取消上传分块
 	router.POST("/file/mpupload/cancel",nil)
 	// 查看分块上传的整体状态
