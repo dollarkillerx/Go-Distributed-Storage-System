@@ -32,7 +32,10 @@ Go Distributed Storage System
     - 实现秒传功能
     - 实现文件分块上传
     - 实现断点续传
-    
+- V3版本
+    - 分布式存储Ceph
+- V4版本
+    - 云存储OSS
     
 ### 错误码
 - 0051 模板错误
