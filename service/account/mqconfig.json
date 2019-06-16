@@ -1,0 +1,8 @@
+{
+  "async_transfer_enable": false,
+  "rabbit_url": "amqp://guest:guest@127.0.0.1:5672/",
+  "trans_exchange_name": "uploadserver.trans",
+  "trans_oss_queue_name": "uploadserver.trans.oss",
+  "trans_oss_err_queue_name": "uploadserver.trans.oss.err",
+  "trans_oss_routing_key": "oss"
+}

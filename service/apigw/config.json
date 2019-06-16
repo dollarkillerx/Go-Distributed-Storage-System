@@ -1,0 +1,6 @@
+{
+  "host": ":9001",
+  "mysql_dsn": "root:123456@tcp(127.0.0.1:3307)/fileserver?charset=utf8",
+  "pwd_salt": "U2FsdGVkX1+z8RnugkL5mhKdptGxHsvgwWZpnE2splooG872Eb8jiJS18/jua5u/",
+  "redisHost": "127.0.0.1:6379"
+}
