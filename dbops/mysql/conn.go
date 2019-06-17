@@ -14,10 +14,10 @@ import (
 
 var (
 	Engine *sql.DB
-	e error
+	e      error
 )
 
-func init()  {
+func init() {
 	Engine, e = sql.Open("mysql", config.ConfigBase.MySQLDsn)
 	if e != nil {
 		panic(e.Error())

@@ -14,15 +14,15 @@ import (
 
 // 基础配置
 type configStruct struct {
-	Host string `json:"host"`
-	MySQLDsn string `json:"mysql_dsn"`
-	PwdSalt string `json:"pwd_salt"`
+	Host      string `json:"host"`
+	MySQLDsn  string `json:"mysql_dsn"`
+	PwdSalt   string `json:"pwd_salt"`
 	RedisHost string `json:"redisHost"`
 }
 
 // oss配置
 type OssCon struct {
-	OssBucket string `json:"oss_bucket"`
+	OssBucket   string `json:"oss_bucket"`
 	OssEndpoint string `json:"oss_endpoint"`
 	// oss访问key
 	OssAccessKeyID string `json:"oss_access_key_id"`
@@ -46,20 +46,19 @@ type MqConf struct {
 	TransOSSRoutingKey string `json:"trans_oss_routing_key"`
 }
 
-
 var (
 	ConfigBase *configStruct
-	OssConfig *OssCon
-	MqConfig *MqConf
+	OssConfig  *OssCon
+	MqConfig   *MqConf
 )
 
-func init()  {
+func init() {
 	getBase()
 	getOss()
 	getMq()
 }
 
-func getBase()  {
+func getBase() {
 	path := "./config.json"
 	file, e := os.Open(path)
 	err.ErrPanic(e)
@@ -79,7 +78,7 @@ func getOss() {
 	err.ErrPanic(e)
 }
 
-func getMq()  {
+func getMq() {
 	path := "./mqconfig.json"
 	file, e := os.Open(path)
 	err.ErrPanic(e)

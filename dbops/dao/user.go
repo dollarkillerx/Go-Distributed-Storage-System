@@ -16,7 +16,7 @@ import (
 	"strings"
 )
 
-func UserSigrup(username,password string) error {
+func UserSigrup(username, password string) error {
 	sql := "INSERT IGNORE INTO `tbl_user`(`user_name`,`user_pwd`,`signup_at`,`status`) VALUE(?,?,?,0)"
 	stmt, e := mysql.Engine.Prepare(sql)
 	if e != nil {
@@ -28,23 +28,22 @@ func UserSigrup(username,password string) error {
 	fmt.Println(username)
 	fmt.Println(password)
 
-	result, e := stmt.Exec(username, password,utils.TimeGetNowTimeStr())
+	result, e := stmt.Exec(username, password, utils.TimeGetNowTimeStr())
 	if e != nil {
 		log.Println(e.Error())
 		return e
 	}
-	if i, e := result.RowsAffected();e == nil{
-		if i >0 {
+	if i, e := result.RowsAffected(); e == nil {
+		if i > 0 {
 			return nil
 		}
-	}else{
+	} else {
 		log.Println(e.Error())
 	}
 	return errors.New("sigrup err")
 }
 
-
-func UserSignin(username,password string) error {
+func UserSignin(username, password string) error {
 	pwd := password + config.ConfigBase.PwdSalt
 	encode := utils.Sha1Encode(pwd)
 	// 着会有两种 我选择最安全的那种把
@@ -60,10 +59,8 @@ func UserSignin(username,password string) error {
 		return e
 	}
 	// true 匹配正确
-	if strings.EqualFold(encode,uspwd) {
+	if strings.EqualFold(encode, uspwd) {
 		return nil
 	}
 	return errors.New("pwd not")
 }
-
-

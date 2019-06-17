@@ -8,7 +8,7 @@ package test
 
 import "testing"
 
-func TestOnes(t *testing.T)  {
+func TestOnes(t *testing.T) {
 	// 存储类型(表示文件存到哪里)
 	type storeType int
 

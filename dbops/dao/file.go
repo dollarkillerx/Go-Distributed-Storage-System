@@ -17,7 +17,7 @@ import (
 // 对file文件相关的dao操作
 
 // 入库
-func OnFileUploadFinished(filehash,filename,fileaddr string,filesize int64) error {
+func OnFileUploadFinished(filehash, filename, fileaddr string, filesize int64) error {
 	sql := "INSERT IGNORE INTO `tbl_file`(`file_sha1`,`file_name`,`file_size`,`file_addr`,`status`,`create_at`) VALUE(?,?,?,?,0,?)"
 	stmt, e := mysql.Engine.Prepare(sql)
 	if e != nil {
@@ -25,29 +25,29 @@ func OnFileUploadFinished(filehash,filename,fileaddr string,filesize int64) erro
 		return errors.New(e.Error())
 	}
 	defer stmt.Close()
-	result, e := stmt.Exec(filehash, filename, filesize, fileaddr,utils.TimeGetNowTimeStr())
+	result, e := stmt.Exec(filehash, filename, filesize, fileaddr, utils.TimeGetNowTimeStr())
 	if e != nil {
 		log.Println("exec error")
 		return errors.New(e.Error())
 	}
 
-	if i, e := result.RowsAffected();e == nil {
-		if i>0 {
+	if i, e := result.RowsAffected(); e == nil {
+		if i > 0 {
 			return nil
 		}
-	}else{
+	} else {
 		log.Println(e.Error())
 	}
 	return errors.New("insert data error")
 }
 
 // 查询
-func GetFileMetaDb(filehash string) (*defs.FileMeta,error)  {
+func GetFileMetaDb(filehash string) (*defs.FileMeta, error) {
 	sql := "SELECT `file_sha1`,`file_size`,`file_addr`,`create_at`,`file_name` FROM `tbl_file` WHERE `file_sha1` = ? AND `status` = 0 LIMIT 1"
 	stmt, e := mysql.Engine.Prepare(sql)
 	if e != nil {
 		log.Println("error mysql prepare")
-		return nil,e
+		return nil, e
 	}
 	defer stmt.Close()
 	meta := &defs.FileMeta{}
@@ -55,9 +55,9 @@ func GetFileMetaDb(filehash string) (*defs.FileMeta,error)  {
 	if e != nil {
 		log.Println("error mysql query row")
 		log.Println(e.Error())
-		return nil,e
+		return nil, e
 	}
-	return meta,nil
+	return meta, nil
 }
 
 func UpdateFileMetaToDb(fmeta *defs.FileMeta) error {
@@ -67,4 +67,3 @@ func UpdateFileMetaToDb(fmeta *defs.FileMeta) error {
 	}
 	return nil
 }
-

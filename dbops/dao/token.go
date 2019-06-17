@@ -12,7 +12,7 @@ import (
 	"log"
 )
 
-func UpdateToken(username,token string) error {
+func UpdateToken(username, token string) error {
 	sql := "replace into `tbl_user_token`(`user_name`,`user_token`) VALUE(?,?)"
 	stmt, e := mysql.Engine.Prepare(sql)
 	if e != nil {
@@ -26,11 +26,11 @@ func UpdateToken(username,token string) error {
 		return e
 	}
 
-	if i, e := result.RowsAffected();e != nil {
+	if i, e := result.RowsAffected(); e != nil {
 		log.Println(e.Error())
 		return e
-	}else{
-		if i>0{
+	} else {
+		if i > 0 {
 			return nil
 		}
 	}

@@ -14,5 +14,5 @@ import (
 func main() {
 	router := route.RegisterRoute()
 
-	http.ListenAndServe(":8081",router)
+	http.ListenAndServe(":8081", router)
 }

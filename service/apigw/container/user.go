@@ -27,7 +27,7 @@ func init() {
 	//	micro.RegisterInterval(time.Second*5),
 	//)
 	service := micro.NewService(
-		//这个服务不需要访问就没有必要填写name了
+	//这个服务不需要访问就没有必要填写name了
 	)
 	// 初始化,解析命令行参数
 	service.Init()
@@ -36,8 +36,8 @@ func init() {
 	userCli = proto.NewUserService("go.micro.service", service.Client())
 }
 
-func DoSignupHandle(w http.ResponseWriter,r *http.Request,p httprouter.Params) {
-	r.Header.Set("Access-Control-Allow-Origin","*")
+func DoSignupHandle(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	r.Header.Set("Access-Control-Allow-Origin", "*")
 	r.ParseForm()
 	username := r.PostForm.Get("username")
 	password := r.PostForm.Get("password")
@@ -47,8 +47,8 @@ func DoSignupHandle(w http.ResponseWriter,r *http.Request,p httprouter.Params) {
 		Password: password,
 	})
 	if e != nil {
-		response.RespMsg(w,defs.ErrorBadServer)
+		response.RespMsg(w, defs.ErrorBadServer)
 		return
 	}
-	response.RespInputMsg(w,int(resp.Code),resp.Message)
+	response.RespInputMsg(w, int(resp.Code), resp.Message)
 }

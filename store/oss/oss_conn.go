@@ -14,7 +14,7 @@ import (
 
 var (
 	OssCli *oss.Client
-	e error
+	e      error
 )
 
 func init() {
@@ -22,7 +22,7 @@ func init() {
 }
 
 func ossCline() {
-	OssCli, e = oss.New(config.OssConfig.OssEndpoint,config.OssConfig.OssAccessKeyID,config.OssConfig.OssAccessKeySecret)
+	OssCli, e = oss.New(config.OssConfig.OssEndpoint, config.OssConfig.OssAccessKeyID, config.OssConfig.OssAccessKeySecret)
 	if e != nil {
 		panic(e.Error())
 	}

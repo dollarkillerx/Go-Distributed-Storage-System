@@ -22,22 +22,19 @@ func init() {
 		SecretKey: "",
 	}
 	region := aws.Region{
-		Name:"default",
-		EC2Endpoint:"http://127.0.0.1:9080",
-		S3Endpoint:"http://127.0.0.1:9080",
-		S3BucketEndpoint:"",
-		S3LocationConstraint:false, // 没有区域限制
-		S3LowercaseBucket:false, // bucket没有大小写限制
-		Sign:aws.SignV2,
+		Name:                 "default",
+		EC2Endpoint:          "http://127.0.0.1:9080",
+		S3Endpoint:           "http://127.0.0.1:9080",
+		S3BucketEndpoint:     "",
+		S3LocationConstraint: false, // 没有区域限制
+		S3LowercaseBucket:    false, // bucket没有大小写限制
+		Sign:                 aws.SignV2,
 	}
 	// 创建🔓s3类型连接
 	CephConn = s3.New(auth, region)
 }
 
 // 获取指定Bucker
-func GetCephBucker(bucket string)*s3.Bucket {
+func GetCephBucker(bucket string) *s3.Bucket {
 	return CephConn.Bucket(bucket)
 }
-
-
-

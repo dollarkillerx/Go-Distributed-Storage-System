@@ -13,9 +13,7 @@ import (
 	"testing"
 )
 
-func TestOne(t *testing.T)  {
+func TestOne(t *testing.T) {
 	i, _ := strconv.Atoi(utils.TimeGetNowTimeStr())
 	log.Println(i)
 }
-
-

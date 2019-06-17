@@ -16,7 +16,7 @@ import (
 // qName: 队列名称
 // cName: 消费者名称
 // callback: 处理函数
-func StartConsume(qName,cName string,callback func(msg []byte)error){
+func StartConsume(qName, cName string, callback func(msg []byte) error) {
 	// 1.通过channel.Consume 获得消息的信道
 	if MQChann == nil {
 		log.Println("chann is not")
@@ -41,7 +41,7 @@ func StartConsume(qName,cName string,callback func(msg []byte)error){
 	go func() {
 		for {
 			select {
-			case data :=<-deliveries :
+			case data := <-deliveries:
 				// 3.调用callback处理消息
 				err := callback(data.Body)
 				if err != nil {

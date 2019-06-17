@@ -15,26 +15,26 @@ import (
 	"log"
 )
 
-type User struct {}
+type User struct{}
 
 // 处理用户主持请求
-func (u *User) Signup(ctx context.Context,req *proto.ReqSignup,res *proto.RespSignup) error {
+func (u *User) Signup(ctx context.Context, req *proto.ReqSignup, res *proto.RespSignup) error {
 	username := req.Username
 	password := req.Password
 
 	// 参数校验
-	if len(username) <3 || len(password) <5 {
+	if len(username) < 3 || len(password) < 5 {
 		res.Code = 400
 		res.Message = "注册参数无效"
 		return nil
 	}
 	// 对秘密进行加密
 	pwd := utils.Sha1Encode(password + config.ConfigBase.PwdSalt)
-	if err := dao.UserSigrup(username, pwd);err == nil {
+	if err := dao.UserSigrup(username, pwd); err == nil {
 		res.Code = 200
 		res.Message = "注册成功"
 		return nil
-	}else{
+	} else {
 		log.Println(err.Error())
 	}
 	res.Code = 500

@@ -19,23 +19,23 @@ import (
 )
 
 // 用户注册页面view
-func SignupHandlerView(w http.ResponseWriter,r *http.Request,p httprouter.Params) {
+func SignupHandlerView(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	bytes, e := ioutil.ReadFile("./static/view/file/signup.html")
 	if e != nil {
-		response.RespMsg(w,defs.ErrorBadView)
+		response.RespMsg(w, defs.ErrorBadView)
 		return
 	}
-	response.RespView(w,bytes)
+	response.RespView(w, bytes)
 }
 
 // 处理用户注册
-func SignupHandler(w http.ResponseWriter,r *http.Request,p httprouter.Params) {
+func SignupHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	r.ParseForm()
 	username := r.PostForm.Get("username")
 	password := r.PostForm.Get("password")
-	if len(username)<3 || len(password)<5 {
+	if len(username) < 3 || len(password) < 5 {
 		log.Println("error len min")
-		response.RespMsg(w,defs.ErrorBadRequest)
+		response.RespMsg(w, defs.ErrorBadRequest)
 		return
 	}
 	pwd := password + config.ConfigBase.PwdSalt
@@ -43,39 +43,39 @@ func SignupHandler(w http.ResponseWriter,r *http.Request,p httprouter.Params) {
 	err := dao.UserSigrup(username, encode)
 	if err != nil {
 		log.Println(err.Error())
-		response.RespMsg(w,defs.ErrorBadRequest)
+		response.RespMsg(w, defs.ErrorBadRequest)
 		return
 	}
-	response.RespInputMsg(w,201,"sig OK!")
+	response.RespInputMsg(w, 201, "sig OK!")
 }
 
 // 登陆接口
-func SignlnHandler(w http.ResponseWriter,r *http.Request,p httprouter.Params) {
+func SignlnHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	r.ParseForm()
 	username := r.PostForm.Get("username")
 	password := r.PostForm.Get("password")
 	// 1.验证用户名以及密码
 	err := dao.UserSigrup(username, password)
 	if err != nil {
-		response.RespMsg(w,defs.ErrorBadRequest)
+		response.RespMsg(w, defs.ErrorBadRequest)
 		return
 	}
 	// 2.生成访问凭证(token)
 	token := defs.GetToken(username)
-	err = dao.UpdateToken(username,token)
+	err = dao.UpdateToken(username, token)
 	if err != nil {
-		response.RespMsg(w,defs.ErrorBadServer)
+		response.RespMsg(w, defs.ErrorBadServer)
 		return
 	}
 	// 3.登陆成功后重定向到首页
-	response.RespInputData(w,200,defs.Ic{
-		"location":"http://" + r.Host + "home.html",
-		"username":username,
-		"token":token,
+	response.RespInputData(w, 200, defs.Ic{
+		"location": "http://" + r.Host + "home.html",
+		"username": username,
+		"token":    token,
 	})
 }
 
-func UserInfoHandler(w http.ResponseWriter,r *http.Request,p httprouter.Params) {
+func UserInfoHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	// 1.解析请求参数
 	r.ParseForm()
 	//username := r.Form.Get("username")
@@ -83,7 +83,7 @@ func UserInfoHandler(w http.ResponseWriter,r *http.Request,p httprouter.Params) 
 	// 2.验证token是否有效
 	err := dao.IsValidToken(token)
 	if err != nil {
-		response.RespMsg(w,defs.ErrorBadRequest)
+		response.RespMsg(w, defs.ErrorBadRequest)
 		return
 	}
 	// 3.查询用户信息

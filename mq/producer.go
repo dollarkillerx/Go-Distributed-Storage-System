@@ -16,9 +16,9 @@ import (
 )
 
 var (
-	MQConn *amqp.Connection
+	MQConn  *amqp.Connection
 	MQChann *amqp.Channel
-	e error
+	e       error
 )
 
 func init() {
@@ -33,7 +33,7 @@ func init() {
 }
 
 // 发布消息
-func Publish(exchange,routingKey string,msg []byte) error {
+func Publish(exchange, routingKey string, msg []byte) error {
 	// 1.判断channel是否是正常的
 	if MQChann == nil {
 		return errors.New("chan not ex")

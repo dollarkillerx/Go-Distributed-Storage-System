@@ -25,21 +25,19 @@ var fileMetas sync.Map
 
 // UpdateFileMeate: 更新/新增文件元信息
 func UpdateFileMeta(fmeta *FileMeta) {
-	fileMetas.Store(fmeta.FileSha1,fmeta)
+	fileMetas.Store(fmeta.FileSha1, fmeta)
 }
 
-
-
 // GetFileMeta:通过sha1key获取文件元信息对象
-func GetFileMeta(fileSha1 string) (*FileMeta,error) {
+func GetFileMeta(fileSha1 string) (*FileMeta, error) {
 	value, ok := fileMetas.Load(fileSha1)
 	if ok {
-		meta,ok := value.(*FileMeta)
+		meta, ok := value.(*FileMeta)
 		if ok {
-			return meta,nil
+			return meta, nil
 		}
 	}
-	return nil,errors.New("bad")
+	return nil, errors.New("bad")
 }
 
 // 获取批量的文件元信息列表
@@ -70,4 +68,3 @@ func FileDeleteHandler(hash string) error {
 	}
 	return nil
 }
-

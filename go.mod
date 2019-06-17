@@ -10,6 +10,6 @@ require (
 	github.com/julienschmidt/httprouter v1.2.0
 	github.com/micro/go-micro v1.5.0
 	github.com/micro/protoc-gen-micro v0.8.0 // indirect
-	github.com/streadway/amqp v0.0.0-20190404075320-75d898a42a94 // indirect
+	github.com/streadway/amqp v0.0.0-20190404075320-75d898a42a94
 	gopkg.in/amz.v1 v1.0.0-20150111123259-ad23e96a31d2
 )

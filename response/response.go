@@ -12,15 +12,15 @@ import (
 	"net/http"
 )
 
-func RespView(w http.ResponseWriter,bytes []byte)  {
+func RespView(w http.ResponseWriter, bytes []byte) {
 	w.WriteHeader(200)
-	w.Header().Set("Content-Type","text/html")
+	w.Header().Set("Content-Type", "text/html")
 	w.Write(bytes)
 }
 
-func RespMsg(w http.ResponseWriter,msg *defs.Message)  {
+func RespMsg(w http.ResponseWriter, msg *defs.Message) {
 	w.WriteHeader(msg.Code)
-	w.Header().Set("Content-Type","application/json")
+	w.Header().Set("Content-Type", "application/json")
 	bytes, err := json.Marshal(msg.Resp)
 	if err != nil {
 		return
@@ -28,28 +28,28 @@ func RespMsg(w http.ResponseWriter,msg *defs.Message)  {
 	w.Write(bytes)
 }
 
-func RespInputMsg(w http.ResponseWriter,code int,msg string) {
+func RespInputMsg(w http.ResponseWriter, code int, msg string) {
 	w.WriteHeader(code)
 	data := &defs.Resp{
-		Message:msg,
+		Message: msg,
 	}
 	bytes, e := json.Marshal(data)
 	if e != nil {
-		RespMsg(w,defs.ErrorBadInternalInput)
+		RespMsg(w, defs.ErrorBadInternalInput)
 		return
 	}
 	w.Write(bytes)
 }
 
-func RespInputData(w http.ResponseWriter,code int,data interface{}) {
+func RespInputData(w http.ResponseWriter, code int, data interface{}) {
 	w.WriteHeader(code)
 	datas := &defs.Resp{
-		Code:"200",
-		Data:data,
+		Code: "200",
+		Data: data,
 	}
 	bytes, e := json.Marshal(datas)
 	if e != nil {
-		RespMsg(w,defs.ErrorBadInternalInput)
+		RespMsg(w, defs.ErrorBadInternalInput)
 		return
 	}
 	w.Write(bytes)

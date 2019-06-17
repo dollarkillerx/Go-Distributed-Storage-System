@@ -25,8 +25,8 @@ const (
 
 // 定义MQ消息体
 type TransferData struct {
-	FileHash string
-	CurLocation string // 临时文件地址
-	DestLocation string // 目标文件地址
+	FileHash      string
+	CurLocation   string // 临时文件地址
+	DestLocation  string // 目标文件地址
 	DestStoreType StoreType
 }

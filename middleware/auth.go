@@ -15,13 +15,13 @@ import (
 )
 
 func CheckToken(router httprouter.Handle) httprouter.Handle {
-	return httprouter.Handle(func(w http.ResponseWriter,r *http.Request,p httprouter.Params) {
+	return httprouter.Handle(func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		token := r.Header.Get("token")
 		err := dao.IsValidToken(token)
 		if err != nil {
-			response.RespMsg(w,defs.ErrorBadRequest)
+			response.RespMsg(w, defs.ErrorBadRequest)
 			return
 		}
-		router(w,r,p)
+		router(w, r, p)
 	})
 }

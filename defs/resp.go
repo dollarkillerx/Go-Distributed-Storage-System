@@ -7,13 +7,12 @@
 package defs
 
 type Message struct {
-	Code int `json:"code"`
+	Code int   `json:"code"`
 	Resp *Resp `json:"resp"`
 }
 
 type Resp struct {
-	Message string `json:"message,omitempty"`
-	Code string `json:"code,omitempty"`
-	Data interface{} `json:"data,omitempty"`
+	Message string      `json:"message,omitempty"`
+	Code    string      `json:"code,omitempty"`
+	Data    interface{} `json:"data,omitempty"`
 }
-

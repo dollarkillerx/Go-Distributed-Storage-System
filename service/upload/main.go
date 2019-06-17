@@ -17,7 +17,7 @@ func main() {
 	app := router.RegisterRouter()
 
 	fmt.Println("server is run http://127.0.0.1" + config.ConfigBase.Host)
-	if err := http.ListenAndServe(config.ConfigBase.Host, app);err != nil {
+	if err := http.ListenAndServe(config.ConfigBase.Host, app); err != nil {
 		panic(err.Error())
 	}
 }
